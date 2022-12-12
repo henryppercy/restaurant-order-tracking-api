@@ -48,9 +48,7 @@ To use this app you will require the following dependencies
 This project was built within a docker environment with a custom configuration for the database connection. As such you
 may need to update your local settings to connect to the database. If so complete the following within `2022-aug-restaurant-api`:
 
-[//]: # (1. Navigate to `docs/json_to_DB.php` and change `$host = 'db'` to `$host = '127.0.0.1'`)
-
-[//]: # (2. Then navigate to `src/DataAccess/Database.php` and change `$host = 'db'` to `$host = '127.0.0.1'`)
+1. Navigate to `src/DataAccess/Database.php` and change `$host = 'db'` to `$host = '127.0.0.1'`
 
 To set the database up locally:
 
