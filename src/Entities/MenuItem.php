@@ -59,6 +59,9 @@ class MenuItem implements \JsonSerializable
         return $this->menuItemImageAlt;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [
