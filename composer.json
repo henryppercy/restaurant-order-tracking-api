@@ -11,14 +11,20 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Carina Volkes",
+            "email": "carinavolkes.dev@gmail.com"
         },
         {
-            "name": "Pierre Berube",
-            "email": "pierre@lgse.com",
-            "homepage": "http://www.lgse.com/"
+            "name": "Henry Percy",
+            "email": "henrypercydev@gmail.com"
+        },
+        {
+            "name": "Pedro Nunes",
+            "email": "pfechadonunes@gmail.com"
+        },
+        {
+            "name": "Phone Naing",
+            "email": "phone.naing.dev@gmail.com"
         }
     ],
     "require": {
