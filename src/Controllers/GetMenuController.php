@@ -9,14 +9,23 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class GetMenuController extends Controller
 {
+    /**
+     * @var MenuService
+     */
     private MenuService $menuService;
 
+    /**
+     * @param MenuService $menuService
+     */
     public function __construct(MenuService $menuService)
     {
         $this->menuService = $menuService;
     }
 
-    public function __invoke(Request $request, Response $response, array $args)
+    /**
+     * @throws \Exception
+     */
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         $data = $this->menuService->getMenu();
 
@@ -24,5 +33,4 @@ class GetMenuController extends Controller
 
         return $this->respondWithJson($response, $data, $statusCode);
     }
-
 }
