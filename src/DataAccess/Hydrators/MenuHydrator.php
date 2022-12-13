@@ -8,6 +8,11 @@ use App\Entities\MenuItemColl;
 
 class MenuHydrator
 {
+    /**
+     * @param Database $db
+     * @param MenuItemColl $menuItemColl
+     * @return MenuItemColl
+     */
     public function hydrateMenuFromDb(Database $db, MenuItemColl $menuItemColl): MenuItemColl
     {
         $sql = 'SELECT `id`, `menu_item_name` as `menuItemName`, `menu_item_desc` as `menuItemDesc`,

@@ -26,7 +26,6 @@ class MenuItemColl implements JsonSerializable
         }
     }
 
-
     /**
      * @return array
      */
