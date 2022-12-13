@@ -84,24 +84,25 @@ To set the database up locally:
 
   ```json
   {
+    "success": 1, 
     "message": "Menu successfully retrieved.",
     "data":
     [
         {
             "id": 1,
-            "menu_item_name": "Classic Burguer",
-            "menu_item_desc": "A delicious beef burger with all the fixings, including lettuce, tomato, onion, pickles, ketchup, and mustard",
-            "menu_item_price": 8.99,
-            "menu_item_image": "https://images.unsplash.com/photo-1572448862527-d3c904757de6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
-            "image_alt": "Classic Burger"
+            "name": "Classic Burguer",
+            "description": "A delicious beef burger with all the fixings, including lettuce, tomato, onion, pickles, ketchup, and mustard",
+            "price": 8.99,
+            "imageURL": "https://images.unsplash.com/photo-1572448862527-d3c904757de6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
+            "imageAlt": "Classic Burger"
         },
         {
             "id": 2,
-            "menu_item_name": "BBQ Burguer",
-            "menu_item_desc": "A beef burger topped with smoky BBQ sauce, crispy onion rings, and melted cheddar cheese",
-            "menu_item_price": 7.99,
-            "menu_item_image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1299&q=80",
-            "image_alt": "BBQ Burger"
+            "name": "BBQ Burguer",
+            "description": "A beef burger topped with smoky BBQ sauce, crispy onion rings, and melted cheddar cheese",
+            "price": 7.99,
+            "imageURL": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1299&q=80",
+            "imageAlt": "BBQ Burger"
         }
     ]
   }
@@ -147,6 +148,13 @@ To set the database up locally:
         * **Code:** 200 <br />
           **Content:** `{"message": "Successfuly created new order",
             "data": {"order_number_id": 12}}`
+
+    * **Error Responses:**
+        * **Code:** 400 BAD REQUEST<br />
+          **Content:** `{"message": "Something went wrong.", "data": []}`
+
+        * **Code:** 500 SERVER ERROR <br />
+          **Content:** `{"message": "Something went wrong.", "data": []}`
 ---
 
 
