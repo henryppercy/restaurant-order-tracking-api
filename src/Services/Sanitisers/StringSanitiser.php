@@ -8,7 +8,7 @@ class StringSanitiser
      * @param string $validateData
      * @return string
      */
-    public static function sanitiseString(string $validateData): string
+    public static function sanitiseString(?string $validateData): string
     {
         if ($validateData === null) {
             return '';
