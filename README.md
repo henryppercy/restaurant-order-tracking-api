@@ -1,6 +1,6 @@
 [//]: # (To Do:)
 
-[//]: # (Refer to Frontend when testing is complete) and how to connect the FE to BE
+[//]: # (# &#40;Refer to Frontend when testing is complete&#41; and how to connect the FE to BE)
 
 [//]: # (Update instructions for editing DB connection parameters)
 # The Hawks (2022 August Cohort): Final Project
@@ -59,7 +59,98 @@ To set the database up locally:
 
 ## 4. Using the API
 
-[//]: # (To update as we progress through each story)
+### Return all menu items
+
+* **URL**
+
+  `/menu`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  There are no URL params
+
+  **Example:**
+
+  `/menu`
+
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** <br />
+
+  ```json
+  {
+    "message": "Menu successfully retrieved.",
+    "data":
+    [
+        {
+            "id": 1,
+            "menu_item_name": "Classic Burguer",
+            "menu_item_desc": "A delicious beef burger with all the fixings, including lettuce, tomato, onion, pickles, ketchup, and mustard",
+            "menu_item_price": 8.99,
+            "menu_item_image": "https://images.unsplash.com/photo-1572448862527-d3c904757de6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
+            "image_alt": "Classic Burger"
+        },
+        {
+            "id": 2,
+            "menu_item_name": "BBQ Burguer",
+            "menu_item_desc": "A beef burger topped with smoky BBQ sauce, crispy onion rings, and melted cheddar cheese",
+            "menu_item_price": 7.99,
+            "menu_item_image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1299&q=80",
+            "image_alt": "BBQ Burger"
+        }
+    ]
+  }
+  ```
+
+* **Error Responses:**
+    * **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
+  
+    * **Code:** 500 SERVER ERROR <br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
+
+### Create New Order
+
+* **URL**
+
+  `/orders`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+  There are no URL params
+
+  **Example:**
+
+  `/orders`
+
+  * **Body Data:**
+
+  ```json
+        {
+            "customer_name": "Donald Duck",
+            "customer_email": "therealDonald@duckmail.com",
+            "delivery_address": "13 Bell St, St Andrews, Fife, KY16 9UR",
+            "order_status": 1
+        }
+  ```
+    * **Success Response:**
+
+        * **Code:** 200 <br />
+          **Content:** `{"message": "Successfuly created new order",
+            "data": {"order_number_id": 12}}`
+---
+
+
+
 ## Authors
 Carina Volkes - [@Carinav](https://github.com/Carinav)
 
@@ -68,3 +159,4 @@ Henry Percy - [@henryppercy](https://github.com/henryppercy)
 Pedro Nunes- [@TherealGuah](https://github.com/TherealGuah)
 
 Phone Naing - [@PNaing107](https://github.com/PNaing107)
+
