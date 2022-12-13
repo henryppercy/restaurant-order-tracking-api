@@ -41,7 +41,8 @@ To use this app you will require the following dependencies
 2. Navigate into the newly created repo: `cd 2022-aug-restaurant-api`
 3. From the root of the project run: `composer install`
 4. To run the application locally run: `composer start`
-5. Run this command in the application directory to run the test suite: `composer test`
+5. The API can be accessed at port `8080` or whichever specified in the terminal
+6. Run this command in the application directory to run the test suite: `composer test`
 
 ### 3.2 Database
 
