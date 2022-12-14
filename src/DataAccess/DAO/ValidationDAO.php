@@ -27,4 +27,20 @@ class ValidationDAO
 
         return $result;
     }
+
+    public static function checkIfStatusInProgress(Database $db, int $orderNum): bool
+    {
+        $sql = 'SELECT `order_status` FROM `orders` WHERE `order_id_number` = :id;';
+
+        $pdo = $db->getConnection()->prepare($sql);
+
+        $pdo->bindParam(':id', $orderNum);
+
+        $pdo->setFetchMode(PDO::FETCH_NUM);
+
+        $result = $pdo->fetch();
+
+        // 1 represents an order which is still 'in progress'
+        return $result[0] == 1;
+    }
 }
