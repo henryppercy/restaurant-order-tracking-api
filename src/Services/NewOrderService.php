@@ -5,6 +5,8 @@ namespace App\Services;
 use App\DataAccess\DAO\NewOrderDAO;
 use App\DataAccess\Database;
 use App\Entities\NewOrder;
+use App\Services\Sanitisers\StringSanitiser;
+use App\Services\Validators\EmailValidator;
 
 class NewOrderService
 {
@@ -68,10 +70,12 @@ class NewOrderService
         ];
 
         try {
-            if(true) {
+
+            if(EmailValidator::validateEmail($orderDetails['customerEmail'])) {
                 $this->newOrderDAO->postNewOrderToDb($this->db, $orderDetails);
                 $result = $this->newOrderDAO->getNewOrderNumber($this->db, $this->newOrder);
             }
+
         }  catch (\PDOException $exception) {
             $responseData['message'] = $exception->getMessage();
             $this->setStatusCode(500);
