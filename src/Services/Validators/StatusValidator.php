@@ -10,7 +10,7 @@ class StatusValidator
     /**
      * @var Database
      */
-    private static Database $db;
+    private Database $db;
 
     /**
      * @param Database $db
@@ -20,8 +20,12 @@ class StatusValidator
         $this->db = $db;
     }
 
-    public static function validateStatus(int $orderNum): bool
+    /**
+     * @param int $orderNum
+     * @return bool
+     */
+    public function validateStatus(int $orderNum): bool
     {
-        return (ValidationDAO::checkIfStatusInProgress(self::$db, $orderNum));
+        return (ValidationDAO::checkIfStatusInProgress($this->db, $orderNum));
     }
 }

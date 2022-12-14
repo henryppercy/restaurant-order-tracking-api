@@ -7,6 +7,13 @@ use PDO;
 
 class ValidationDAO
 {
+    /**
+     * @param Database $db
+     * @param int $id
+     * @param string $tableName
+     * @param string $columnName
+     * @return bool
+     */
     public static function checkIfExists(Database $db, int $id, string $tableName, string $columnName): bool
     {
         $sql = 'SELECT ' . $columnName . ' FROM ' . $tableName . ' WHERE ' . $columnName . ' = :id;';
@@ -28,6 +35,11 @@ class ValidationDAO
         return $result;
     }
 
+    /**
+     * @param Database $db
+     * @param int $orderNum
+     * @return bool
+     */
     public static function checkIfStatusInProgress(Database $db, int $orderNum): bool
     {
         $sql = 'SELECT `order_status` FROM `orders` WHERE `order_id_number` = :id;';
@@ -44,3 +56,4 @@ class ValidationDAO
         return $result[0] == 1;
     }
 }
+

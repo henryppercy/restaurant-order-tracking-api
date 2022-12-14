@@ -20,6 +20,10 @@ class OrderItemIdValidator
         $this->db = $db;
     }
 
+    /**
+     * @param int $menuItemNum
+     * @return bool
+     */
     public function validateOrderItemNumber(int $menuItemNum): bool
     {
         return (ValidationDAO::checkIfExists($this->db, $menuItemNum, '`menu_items`', '`id`'));

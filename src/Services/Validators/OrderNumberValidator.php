@@ -10,7 +10,7 @@ class OrderNumberValidator
     /**
      * @var Database
      */
-    private static Database $db;
+    private Database $db;
 
     /**
      * @param Database $db
@@ -20,8 +20,12 @@ class OrderNumberValidator
         $this->db = $db;
     }
 
-    public static function validateOrderNumber(int $orderNum): bool
+    /**
+     * @param int $orderNum
+     * @return bool
+     */
+    public function validateOrderNumber(int $orderNum): bool
     {
-        return (ValidationDAO::checkIfExists(self::$db, $orderNum, '`orders`', '`order_number_id`'));
+        return (ValidationDAO::checkIfExists($this->db, $orderNum, '`orders`', '`order_number_id`'));
     }
 }
