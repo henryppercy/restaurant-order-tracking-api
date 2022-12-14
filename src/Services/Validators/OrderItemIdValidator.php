@@ -10,7 +10,7 @@ class OrderItemIdValidator
     /**
      * @var Database
      */
-    private static Database $db;
+    private Database $db;
 
     /**
      * @param Database $db
@@ -20,12 +20,8 @@ class OrderItemIdValidator
         $this->db = $db;
     }
 
-    public static function validateOrderItemNumber(int $menuItemNum): bool
+    public function validateOrderItemNumber(int $menuItemNum): bool
     {
-        if (ValidationDAO::checkIfExists(self::$db, $menuItemNum, '`menu_items`', '`id')) {
-            return true;
-        } else {
-            return false;
-        }
+        return (ValidationDAO::checkIfExists($this->db, $menuItemNum, '`menu_items`', '`id`'));
     }
 }
