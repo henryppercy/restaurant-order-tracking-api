@@ -8,5 +8,5 @@ use App\Controllers\AddOrderItemController;
 
 return function (App $app) {
     $app->get('/menu', GetMenuController::class);
-    $app->post('orders/{orderNumber', AddOrderItemController::class);
+    $app->post('orders/{orderNumber}', AddOrderItemController::class);
 };
