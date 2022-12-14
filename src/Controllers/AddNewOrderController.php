@@ -30,12 +30,6 @@ class AddNewOrderController extends Controller
 
         $statusCode = $this->newOrderService->getStatusCode();
 
-        $orderNumber = $this->newOrderService->getOrderNumber();
-
-        $body = $response->getBody();
-
-        $body->write($orderNumber);
-
         return $this->respondWithJson($response, $data, $statusCode);
     }
 }
