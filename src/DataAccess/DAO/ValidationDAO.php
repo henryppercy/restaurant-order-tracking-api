@@ -56,4 +56,3 @@ class ValidationDAO
         return $result[0] == 1;
     }
 }
-
