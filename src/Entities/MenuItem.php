@@ -73,5 +73,4 @@ class MenuItem implements \JsonSerializable
             'imageAlt' => $this->getMenuItemImageAlt()
         ];
     }
-
 }
