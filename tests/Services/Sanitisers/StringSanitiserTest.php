@@ -15,13 +15,6 @@ class StringSanitiserTest extends TestCase
         $this->assertEquals($result, $expected);
     }
 
-    public function testSanitiseStringSuccessNull()
-    {
-        $result = StringSanitiser::sanitiseString(null);
-        $expected = '';
-        $this->assertEquals($result, $expected);
-    }
-
     public function testSanitiseStringFailure()
     {
         $int = 2;

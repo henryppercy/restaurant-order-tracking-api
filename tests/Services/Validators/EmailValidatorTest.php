@@ -18,4 +18,11 @@ class EmailValidatorTest extends TestCase
         $result = EmailValidator::validateEmail('Example@examplecom');
         $this->assertEquals($result, false);
     }
+
+    public function testValidateEmailMalform()
+    {
+        $arr = [];
+        $this->expectException(\TypeError::class);
+        EmailValidator::validateEmail($arr);
+    }
 }
