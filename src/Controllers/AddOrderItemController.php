@@ -19,7 +19,6 @@ class AddOrderItemController extends Controller
         $this->orderItemService = $orderItemService;
     }
 
-
     /**
      * @param Request $request
      * @param Response $response
