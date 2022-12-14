@@ -146,7 +146,7 @@ To set the database up locally:
     * **Success Response:**
 
         * **Code:** 200 <br />
-          **Content:** `{"message": "Successfuly created new order",
+          **Content:** `{"message": "Successfully created new order.",
             "data": {"orderNumber": 12}}`
 
     * **Error Responses:**
