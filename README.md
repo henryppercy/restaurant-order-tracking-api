@@ -134,7 +134,7 @@ To set the database up locally:
 
   `/orders`
 
-  * **Body Data:**
+* **Body Data:**
 
   ```json
         {
@@ -144,18 +144,61 @@ To set the database up locally:
             "order_status": 1
         }
   ```
-    * **Success Response:**
+* **Success Response:**
 
-        * **Code:** 200 <br />
-          **Content:** `{"message": "Successfuly created new order",
-            "data": {"order_number_id": 12}}`
+  * **Code:** 200 <br />
+    **Content:** `{"message": "Successfuly created new order",
+      "data": {"order_number_id": 12}}`
 
-    * **Error Responses:**
-        * **Code:** 400 BAD REQUEST<br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`
+* **Error Responses:**
+  * **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Something went wrong.", "data": []}`
 
-        * **Code:** 500 SERVER ERROR <br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Something went wrong.", "data": []}`
+
+### Add New Item to Order
+
+* URL
+
+    `/additem`
+
+* Method:
+
+  `POST`
+
+* **URL Params**
+
+  **Required:**
+
+    `orderNumber` - The number for the order that you want to add an item to
+
+  **Example:**
+
+  `/additem/3`
+
+* **Body Data:**
+
+  ```json
+      {
+          "menuItemNumber": 1,
+          "quantity": 3
+      }
+  ```
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{"message": "Item successfuly added.",
+      "data": []`
+
+
+* **Error Responses:**
+
+    * **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
+
+    * **Code:** 500 SERVER ERROR <br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
 ---
 
 
