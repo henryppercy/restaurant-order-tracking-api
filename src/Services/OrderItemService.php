@@ -35,7 +35,6 @@ class OrderItemService
         $this->statusCode = 400;
     }
 
-
     /**
      * @return int
      */
