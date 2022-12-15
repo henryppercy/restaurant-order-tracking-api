@@ -2,14 +2,14 @@
 namespace App\Services;
 use App\DataAccess\DAO\OrderItemDAO;
 use App\DataAccess\Database;
-use App\Services\Validators\AddOrderItemValidator;
+use App\Services\Validators\DeleteOrderItemValidator;
 
 class OrderItemService
 {
     private Database $db;
     private int $statusCode;
     private int $orderNumber;
-    private AddOrderItemValidator $addOrderItemValidator;
+    private DeleteOrderItemValidator $deleteOrderItemValidator;
     private OrderItemDAO $orderItemDAO;
 
     /**
@@ -23,7 +23,7 @@ class OrderItemService
         $this->db = Database::getInstance();
         $this->orderItemDAO = $orderItemDAO;
         $this->statusCode = 400;
-        $this->addOrderItemValidator = $addOrderItemValidator;
+        $this->deleteOrderItemValidator = $addOrderItemValidator;
     }
 
     /**
@@ -86,7 +86,31 @@ class OrderItemService
         return $responseData;
     }
 
-    public function deleteOrderItem(?object $menuItemId)
+    public function deleteOrderItem(array $menuItemId): array
     {
+        $responseData = [
+            'success' => false,
+            'message' => 'Something went wrong.',
+            'data' => []
+        ];
+
+        try {
+            if($this->deleteOrderItemValidator->validateOrderItem($this->db, $this->orderNumber, $menuItemId))   {
+                $this->orderItemDAO->deleteOrderItem($this->db, $this->getOrderNumber(), $menuItemId);
+                $responseData = [
+                    'success' => true,
+                    'message' => 'Item successfully deleted.',
+                    'data' => []
+                ];
+                $this->setStatusCode(204);
+            }
+        } catch (\Exception $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(400);
+        } catch (\PDOException $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(500);
+        }
+        return $responseData;
     }
 }
