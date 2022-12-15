@@ -37,7 +37,7 @@ class DeleteOrderItemValidator
             throw new \Exception("Menu item doesn't exist.");
         }
 
-        if (!$this->orderItemIdValidator->validateOrderItemAlreadyExists($db, $orderNumber, $menuItemId['menuItemNumber'])) {
+        if ($this->orderItemIdValidator->validateOrderItemAlreadyExists($db, $orderNumber, $menuItemId['menuItemNumber'])) {
             throw new \Exception("Menu item didn't exist in order.");
         }
 
