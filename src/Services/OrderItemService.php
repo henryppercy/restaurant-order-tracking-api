@@ -25,12 +25,13 @@ class OrderItemService
      * @param OrderItemIdValidator $orderItemIdValidator
      * @param StatusValidator $statusValidator
      */
-    public function __construct(Database $db, OrderNumberValidator $orderNumberValidator, OrderItemIdValidator $orderItemIdValidator, StatusValidator $statusValidator)
+    public function __construct(OrderNumberValidator $orderNumberValidator, OrderItemIdValidator $orderItemIdValidator, StatusValidator $statusValidator, OrderItemDAO $orderItemDAO)
     {
-        $this->db = $db;
-        $this->numberValidator = $orderNumberValidator;
+        $this->db = Database::getInstance();
+        $this->orderNumberValidator = $orderNumberValidator;
         $this->orderItemIdValidator = $orderItemIdValidator;
         $this->statusValidator = $statusValidator;
+        $this->orderItemDAO = $orderItemDAO;
         $this->statusCode = 400;
     }
 
@@ -78,11 +79,11 @@ class OrderItemService
         try {
             if(
                 QuantityValidator::validateQuantity($orderItemDetails['quantity']) &&
-                $this->orderNumberValidator->validateOrderNumber($this->getOrderNumber()) &&
-                $this->orderItemIdValidator->validateOrderItemNumber($orderItemDetails['menuItemNumber']) &&
-                $this->statusValidator->validateStatus($this->getOrderNumber())
+                $this->orderNumberValidator->validateOrderNumber($this->db,$this->getOrderNumber()) &&
+                $this->orderItemIdValidator->validateOrderItemNumber($this->db, $orderItemDetails['menuItemNumber']) &&
+                $this->statusValidator->validateStatus($this->db, $this->getOrderNumber())
             )   {
-                $this->orderItemDAO->insertOrderItem($this->getOrderNumber(), $orderItemDetails);
+                $this->orderItemDAO->insertOrderItem($this->db, $this->getOrderNumber(), $orderItemDetails);
                 $responseData = [
                     'success' => true,
                     'message' => 'Item successfully added.',
