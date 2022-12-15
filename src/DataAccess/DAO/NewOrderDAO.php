@@ -3,6 +3,7 @@
 namespace App\DataAccess\DAO;
 
 use App\DataAccess\Database;
+use App\Entities\NewOrder;
 
 class NewOrderDAO
 {
@@ -31,7 +32,7 @@ class NewOrderDAO
      * @param Database $db
      * @return string
      */
-    public function getNewOrderNumber(Database $db): string
+    public function getNewOrderNumber(Database $db, NewOrder $newOrder): NewOrder
     {
         $sql = 'SELECT MAX(`order_number_id`) FROM `orders`;';
 
@@ -43,6 +44,8 @@ class NewOrderDAO
 
         $result = $pdo->fetch();
 
-        return strval($result[0]);
+        $newOrder->setOrderNumberId($result[0]);
+
+        return $newOrder;
     }
 }
