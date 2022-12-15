@@ -85,4 +85,8 @@ class OrderItemService
         }
         return $responseData;
     }
+
+    public function deleteOrderItem(?object $menuItemId)
+    {
+    }
 }
