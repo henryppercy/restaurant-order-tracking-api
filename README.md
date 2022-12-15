@@ -111,8 +111,8 @@ To set the database up locally:
 
 * **Error Responses:**
     * **Code:** 400 BAD REQUEST<br />
-      **Content:** `{"message": "Something went wrong.", "data": []}`
-  
+      **Content:** `{"message": "Something went wrong.", "data": []}`<br />
+      OR
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
 
@@ -138,10 +138,9 @@ To set the database up locally:
 
   ```json
         {
-            "customer_name": "Donald Duck",
-            "customer_email": "therealDonald@duckmail.com",
-            "delivery_address": "13 Bell St, St Andrews, Fife, KY16 9UR",
-            "order_status": 1
+            "customerName": "Donald Duck",
+            "customerEmail": "therealDonald@duckmail.com",
+            "deliveryAddress": "13 Bell St, St Andrews, Fife, KY16 9UR"
         }
   ```
 * **Success Response:**
@@ -161,7 +160,7 @@ To set the database up locally:
 
 * URL
 
-    `/additem`
+    `/additems`
 
 * Method:
 
@@ -175,7 +174,7 @@ To set the database up locally:
 
   **Example:**
 
-  `/additem/3`
+  `/additems/3`
 
 * **Body Data:**
 
@@ -199,8 +198,8 @@ To set the database up locally:
 
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
----
 
+---
 
 
 ## Authors
