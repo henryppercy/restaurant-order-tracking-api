@@ -36,7 +36,7 @@ class DeleteOrderItemController extends Controller
         $data = $this->orderItemService->deleteOrderItem($menuItemId);
 
         $statusCode = $this->orderItemService->getStatusCode();
-        
+
         return $this->respondWithJson($response, $data, $statusCode);
     }
 }
