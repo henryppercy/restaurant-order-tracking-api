@@ -5,8 +5,8 @@ namespace App\Services;
 use App\DataAccess\DAO\NewOrderDAO;
 use App\DataAccess\Database;
 use App\Entities\NewOrder;
-use App\Services\Sanitisers\StringSanitiser;
 use App\Services\Validators\EmailValidator;
+use App\Services\Sanitisers\NewOrderSanitiser;
 
 class NewOrderService
 {
@@ -70,6 +70,7 @@ class NewOrderService
         ];
 
         try {
+            $orderDetails = NewOrderSanitiser::sanitise($orderDetails);
 
             if(EmailValidator::validateEmail($orderDetails['customerEmail'])) {
                 $this->newOrderDAO->postNewOrderToDb($this->db, $orderDetails);
