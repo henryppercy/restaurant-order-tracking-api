@@ -134,7 +134,7 @@ To set the database up locally:
 
   `/orders`
 
-  * **Body Data:**
+* **Body Data:**
 
   ```json
         {
@@ -143,24 +143,63 @@ To set the database up locally:
             "deliveryAddress": "13 Bell St, St Andrews, Fife, KY16 9UR"
         }
   ```
-    * **Success Response:**
+* **Success Response:**
 
-        * **Code:** 200 <br />
-          **Content:** `{"message": "Successfully created new order.",
-            "data": {"orderNumber": 12}}`
+  * **Code:** 200 <br />
+    **Content:** `{"message": "Successfuly created new order",
+      "data": {"order_number_id": 12}}`
 
-    * **Error Responses:**
-        * **Code:** 400 BAD REQUEST<br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`<br />
-          OR
-        * If email is not valid <br />
-          **Code:** 422 BAD REQUEST<br />
-          **Content:** `{"message": "Email is not valid", "data": []}`<br />
-          OR
-        * **Code:** 500 SERVER ERROR <br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`
+* **Error Responses:**
+  * **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Something went wrong.", "data": []}`
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Something went wrong.", "data": []}`
+
+### Add New Item to Order
+
+* URL
+
+    `/additems`
+
+* Method:
+
+  `POST`
+
+* **URL Params**
+
+  **Required:**
+
+    `orderNumber` - The number for the order that you want to add an item to
+
+  **Example:**
+
+  `/additems/3`
+
+* **Body Data:**
+
+  ```json
+      {
+          "menuItemNumber": 1,
+          "quantity": 3
+      }
+  ```
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{"message": "Item successfuly added.",
+      "data": []`
+
+
+* **Error Responses:**
+
+    * **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
+
+    * **Code:** 500 SERVER ERROR <br />
+      **Content:** `{"message": "Something went wrong.", "data": []}`
+
 ---
-
 
 
 ## Authors
