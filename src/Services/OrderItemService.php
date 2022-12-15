@@ -2,18 +2,15 @@
 namespace App\Services;
 use App\DataAccess\DAO\OrderItemDAO;
 use App\DataAccess\Database;
-use App\Services\Validators\OrderItemIdValidator;
-use App\Services\Validators\OrderNumberValidator;
-use App\Services\Validators\QuantityValidator;
-use App\Services\Validators\StatusValidator;
+use App\Services\Validators\AddOrderItemValidator;
+
 class OrderItemService
 {
     private Database $db;
     private int $statusCode;
     private int $orderNumber;
-    private OrderNumberValidator $orderNumberValidator;
-    private OrderItemIdValidator $orderItemIdValidator;
-    private StatusValidator $statusValidator;
+    private AddOrderItemValidator $addOrderItemValidator;
+
     private OrderItemDAO $orderItemDAO;
     /**
     @param Database $db
@@ -21,14 +18,12 @@ class OrderItemService
     @param OrderItemIdValidator $orderItemIdValidator
     @param StatusValidator $statusValidator
      */
-    public function __construct(OrderNumberValidator $orderNumberValidator, OrderItemIdValidator $orderItemIdValidator, StatusValidator $statusValidator, OrderItemDAO $orderItemDAO)
+    public function __construct(OrderItemDAO $orderItemDAO, AddOrderItemValidator $addOrderItemValidator)
     {
         $this->db = Database::getInstance();
-        $this->orderNumberValidator = $orderNumberValidator;
-        $this->orderItemIdValidator = $orderItemIdValidator;
-        $this->statusValidator = $statusValidator;
         $this->orderItemDAO = $orderItemDAO;
         $this->statusCode = 400;
+        $this->addOrderItemValidator = $addOrderItemValidator;
     }
     /**
     @return int
@@ -58,6 +53,7 @@ class OrderItemService
     {
         $this->orderNumber = $orderNumber;
     }
+
     public function postNewOrderItem(array $orderItemDetails): array
     {
         $responseData = [
@@ -65,26 +61,20 @@ class OrderItemService
             'message' => 'Something went wrong.',
             'data' => []
         ];
+
         try {
-            if($this->orderItemIdValidator->validateOrderItemAlreadyExists($this->db, $this->getOrderNumber(), $orderItemDetails['menuItemNumber'])){
-                if(
-                    QuantityValidator::validateQuantity($orderItemDetails['quantity']) &&
-                    $this->orderNumberValidator->validateOrderNumber($this->db,$this->getOrderNumber()) &&
-                    $this->orderItemIdValidator->validateOrderItemNumber($this->db, $orderItemDetails['menuItemNumber']) &&
-                    $this->statusValidator->validateStatus($this->db, $this->getOrderNumber())
-                )   {
-                    $this->orderItemDAO->insertOrderItem($this->db, $this->getOrderNumber(), $orderItemDetails);
-                    $responseData = [
-                        'success' => true,
-                        'message' => 'Item successfully added.',
-                        'data' => []
-                    ];
-                    $this->setStatusCode(200);
-                }
-            } else {
-                $responseData['message'] = 'This item has already been added.';
-                $this->setStatusCode(400);
+            if($this->addOrderItemValidator->validateNewOrderItem($this->db, $this->orderNumber, $orderItemDetails))   {
+                $this->orderItemDAO->insertOrderItem($this->db, $this->getOrderNumber(), $orderItemDetails);
+                $responseData = [
+                    'success' => true,
+                    'message' => 'Item successfully added.',
+                    'data' => []
+                ];
+                $this->setStatusCode(200);
             }
+        } catch (\Exception $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(400);
         } catch (\PDOException $exception) {
             $responseData['message'] = $exception->getMessage();
             $this->setStatusCode(500);
