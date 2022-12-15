@@ -106,7 +106,7 @@ class OrderItemService
                     'message' => 'Item successfully deleted.',
                     'data' => []
                 ];
-                $this->setStatusCode(200);
+                $this->setStatusCode(204);
             }
         } catch (\Exception $exception) {
             $responseData['message'] = $exception->getMessage();
