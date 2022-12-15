@@ -22,6 +22,6 @@ class OrderItemIdValidator
      */
     public function validateOrderItemAlreadyExists(Database $db, int $orderNumber, int $menuItemNum): bool
     {
-        return (ValidationDAO::checkIfExists($db, $orderNumber, '`order_items`', '`id`', $menuItemNum));
+        return !(ValidationDAO::checkIfExists($db, $orderNumber, '`order_items`', '`menu_item`', $menuItemNum));
     }
 }
