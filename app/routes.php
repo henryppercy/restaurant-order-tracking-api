@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use App\Controllers\GetMenuController;
+use App\Controllers\AddNewOrderController;
 use Slim\Exception\HttpNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -25,6 +26,7 @@ return function (App $app) {
     });
 
     $app->get('/menu', GetMenuController::class);
+    $app->post('/orders', AddNewOrderController::class);
 
     $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Request $request, $response): HttpNotFoundException {
         throw new HttpNotFoundException($request);

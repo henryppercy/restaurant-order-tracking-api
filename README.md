@@ -111,8 +111,8 @@ To set the database up locally:
 
 * **Error Responses:**
     * **Code:** 400 BAD REQUEST<br />
-      **Content:** `{"message": "Something went wrong.", "data": []}`
-  
+      **Content:** `{"message": "Something went wrong.", "data": []}`<br />
+      OR
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
 
@@ -138,22 +138,25 @@ To set the database up locally:
 
   ```json
         {
-            "customer_name": "Donald Duck",
-            "customer_email": "therealDonald@duckmail.com",
-            "delivery_address": "13 Bell St, St Andrews, Fife, KY16 9UR",
-            "order_status": 1
+            "customerName": "Donald Duck",
+            "customerEmail": "therealDonald@duckmail.com",
+            "deliveryAddress": "13 Bell St, St Andrews, Fife, KY16 9UR"
         }
   ```
     * **Success Response:**
 
         * **Code:** 200 <br />
-          **Content:** `{"message": "Successfuly created new order",
-            "data": {"order_number_id": 12}}`
+          **Content:** `{"message": "Successfully created new order.",
+            "data": {"orderNumber": 12}}`
 
     * **Error Responses:**
         * **Code:** 400 BAD REQUEST<br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`
-
+          **Content:** `{"message": "Something went wrong.", "data": []}`<br />
+          OR
+        * If email is not valid <br />
+          **Code:** 422 BAD REQUEST<br />
+          **Content:** `{"message": "Email is not valid", "data": []}`<br />
+          OR
         * **Code:** 500 SERVER ERROR <br />
           **Content:** `{"message": "Something went wrong.", "data": []}`
 ---
