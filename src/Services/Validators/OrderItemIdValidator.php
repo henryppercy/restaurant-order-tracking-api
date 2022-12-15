@@ -15,4 +15,13 @@ class OrderItemIdValidator
     {
         return (ValidationDAO::checkIfExists($db, $menuItemNum, '`menu_items`', '`id`'));
     }
+
+    /**
+     * @param int $menuItemNum
+     * @return bool
+     */
+    public function validateOrderItemAlreadyExists(Database $db, int $orderNumber, int $menuItemNum): bool
+    {
+        return !(ValidationDAO::checkIfExists($db, $orderNumber, '`order_items`', '`menu_item`', $menuItemNum));
+    }
 }

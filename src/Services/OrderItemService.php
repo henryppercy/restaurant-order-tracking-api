@@ -1,66 +1,53 @@
 <?php
-
 namespace App\Services;
-
 use App\DataAccess\DAO\OrderItemDAO;
 use App\DataAccess\Database;
-use App\Services\Validators\OrderItemIdValidator;
-use App\Services\Validators\OrderNumberValidator;
-use App\Services\Validators\QuantityValidator;
-use App\Services\Validators\StatusValidator;
+use App\Services\Validators\AddOrderItemValidator;
 
 class OrderItemService
 {
     private Database $db;
     private int $statusCode;
     private int $orderNumber;
-    private OrderNumberValidator $orderNumberValidator;
-    private OrderItemIdValidator $orderItemIdValidator;
-    private StatusValidator $statusValidator;
-    private OrderItemDAO $orderItemDAO;
+    private AddOrderItemValidator $addOrderItemValidator;
 
+    private OrderItemDAO $orderItemDAO;
     /**
-     * @param Database $db
-     * @param OrderNumberValidator $numberValidator
-     * @param OrderItemIdValidator $orderItemIdValidator
-     * @param StatusValidator $statusValidator
+    @param Database $db
+    @param OrderNumberValidator $numberValidator
+    @param OrderItemIdValidator $orderItemIdValidator
+    @param StatusValidator $statusValidator
      */
-    public function __construct(OrderNumberValidator $orderNumberValidator, OrderItemIdValidator $orderItemIdValidator, StatusValidator $statusValidator, OrderItemDAO $orderItemDAO)
+    public function __construct(OrderItemDAO $orderItemDAO, AddOrderItemValidator $addOrderItemValidator)
     {
         $this->db = Database::getInstance();
-        $this->orderNumberValidator = $orderNumberValidator;
-        $this->orderItemIdValidator = $orderItemIdValidator;
-        $this->statusValidator = $statusValidator;
         $this->orderItemDAO = $orderItemDAO;
         $this->statusCode = 400;
+        $this->addOrderItemValidator = $addOrderItemValidator;
     }
-
     /**
-     * @return int
+    @return int
      */
     public function getStatusCode(): int
     {
         return $this->statusCode;
     }
-
     /**
-     * @param int $statusCode
+    @param int $statusCode
      */
     public function setStatusCode(int $statusCode): void
     {
         $this->statusCode = $statusCode;
     }
-
     /**
-     * @return int
+    @return int
      */
     public function getOrderNumber(): int
     {
         return $this->orderNumber;
     }
-
     /**
-     * @param int $orderNumber
+    @param int $orderNumber
      */
     public function setOrderNumber(int $orderNumber): void
     {
@@ -76,12 +63,7 @@ class OrderItemService
         ];
 
         try {
-            if(
-                QuantityValidator::validateQuantity($orderItemDetails['quantity']) &&
-                $this->orderNumberValidator->validateOrderNumber($this->db,$this->getOrderNumber()) &&
-                $this->orderItemIdValidator->validateOrderItemNumber($this->db, $orderItemDetails['menuItemNumber']) &&
-                $this->statusValidator->validateStatus($this->db, $this->getOrderNumber())
-            )   {
+            if($this->addOrderItemValidator->validateNewOrderItem($this->db, $this->orderNumber, $orderItemDetails))   {
                 $this->orderItemDAO->insertOrderItem($this->db, $this->getOrderNumber(), $orderItemDetails);
                 $responseData = [
                     'success' => true,
@@ -90,11 +72,13 @@ class OrderItemService
                 ];
                 $this->setStatusCode(200);
             }
+        } catch (\Exception $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(400);
         } catch (\PDOException $exception) {
             $responseData['message'] = $exception->getMessage();
             $this->setStatusCode(500);
         }
-
         return $responseData;
     }
 }

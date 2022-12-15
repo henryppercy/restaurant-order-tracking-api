@@ -14,13 +14,18 @@ class ValidationDAO
      * @param string $columnName
      * @return bool
      */
-    public static function checkIfExists(Database $db, int $id, string $tableName, string $columnName): bool
+    public static function checkIfExists(Database $db, int $id, string $tableName, string $columnName, int $menuItem = 0): bool
     {
-        $sql = 'SELECT ' . $columnName . ' FROM ' . $tableName . ' WHERE ' . $columnName . ' = :id;';
-
-        $pdo = $db->getConnection()->prepare($sql);
-
-        $pdo->bindParam(':id', $id);
+        if($menuItem === 0){
+            $sql = 'SELECT ' . $columnName . ' FROM ' . $tableName . ' WHERE ' . $columnName . ' = :id;';
+            $pdo = $db->getConnection()->prepare($sql);
+            $pdo->bindParam(':id', $id);
+        } else {
+            $sql = 'SELECT ' . $columnName . ' FROM ' . $tableName . ' WHERE ' . $columnName . ' = :menuItem AND `order_number` = :id';
+            $pdo = $db->getConnection()->prepare($sql);
+            $pdo->bindParam(':id', $id);
+            $pdo->bindParam(':menuItem', $menuItem);
+        }
 
         $pdo->execute();
 
