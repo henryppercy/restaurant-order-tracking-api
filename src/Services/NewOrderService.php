@@ -75,6 +75,9 @@ class NewOrderService
             if(EmailValidator::validateEmail($orderDetails['customerEmail'])) {
                 $this->newOrderDAO->postNewOrderToDb($this->db, $orderDetails);
                 $result = $this->newOrderDAO->getNewOrderNumber($this->db, $this->newOrder);
+            } else {
+                $responseData['message'] = 'Email is not valid';
+                $this->setStatusCode(422);
             }
 
         }  catch (\PDOException $exception) {

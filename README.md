@@ -111,8 +111,8 @@ To set the database up locally:
 
 * **Error Responses:**
     * **Code:** 400 BAD REQUEST<br />
-      **Content:** `{"message": "Something went wrong.", "data": []}`
-  
+      **Content:** `{"message": "Something went wrong.", "data": []}`<br />
+      OR
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
 
@@ -151,8 +151,12 @@ To set the database up locally:
 
     * **Error Responses:**
         * **Code:** 400 BAD REQUEST<br />
-          **Content:** `{"message": "Something went wrong.", "data": []}`
-
+          **Content:** `{"message": "Something went wrong.", "data": []}`<br />
+          OR
+        * If email is not valid <br />
+          **Code:** 422 BAD REQUEST<br />
+          **Content:** `{"message": "Email is not valid", "data": []}`<br />
+          OR
         * **Code:** 500 SERVER ERROR <br />
           **Content:** `{"message": "Something went wrong.", "data": []}`
 ---
