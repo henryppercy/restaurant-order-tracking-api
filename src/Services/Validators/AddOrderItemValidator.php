@@ -9,6 +9,7 @@ class AddOrderItemValidator
     private OrderNumberValidator $orderNumberValidator;
     private OrderItemIdValidator $orderItemIdValidator;
     private StatusValidator $statusValidator;
+
     /**
     @param Database $db
     @param OrderNumberValidator $numberValidator

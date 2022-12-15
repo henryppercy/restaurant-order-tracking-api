@@ -30,8 +30,6 @@ return function (App $app) {
     $app->post('/orders', AddNewOrderController::class);
     $app->post('/additems/{orderNumber}', AddOrderItemController::class);
 
-
-
     $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Request $request, $response): HttpNotFoundException {
         throw new HttpNotFoundException($request);
     });

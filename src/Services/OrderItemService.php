@@ -10,8 +10,8 @@ class OrderItemService
     private int $statusCode;
     private int $orderNumber;
     private AddOrderItemValidator $addOrderItemValidator;
-
     private OrderItemDAO $orderItemDAO;
+
     /**
     @param Database $db
     @param OrderNumberValidator $numberValidator
@@ -25,6 +25,7 @@ class OrderItemService
         $this->statusCode = 400;
         $this->addOrderItemValidator = $addOrderItemValidator;
     }
+
     /**
     @return int
      */
@@ -32,6 +33,7 @@ class OrderItemService
     {
         return $this->statusCode;
     }
+
     /**
     @param int $statusCode
      */
@@ -39,6 +41,7 @@ class OrderItemService
     {
         $this->statusCode = $statusCode;
     }
+
     /**
     @return int
      */
@@ -46,6 +49,7 @@ class OrderItemService
     {
         return $this->orderNumber;
     }
+
     /**
     @param int $orderNumber
      */
