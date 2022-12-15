@@ -96,7 +96,7 @@ class OrderItemService
 
         try {
             if($this->deleteOrderItemValidator->validateOrderItem($this->db, $this->orderNumber, $menuItemId))   {
-                $this->orderItemDAO->deleteOrderItem($this->db, $this->getOrderNumber(), $menuItemId);
+                $this->orderItemDAO->deleteOrderItem($this->db, $this->getOrderNumber(), $menuItemId['menuItemNumber']);
                 $responseData = [
                     'success' => true,
                     'message' => 'Item successfully deleted.',
