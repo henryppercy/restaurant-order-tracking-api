@@ -95,7 +95,6 @@ class OrderItemService
             $this->setStatusCode(500);
         }
 
-
         return $responseData;
     }
 }
