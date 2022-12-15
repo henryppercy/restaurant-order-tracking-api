@@ -54,11 +54,9 @@ class ValidationDAO
 
         $result = $pdo->fetch();
 
-        // 1 represents an order which is still 'in progress'
         if($result[0] === 1) {
             return true;
         }
-
         return false;
     }
 }

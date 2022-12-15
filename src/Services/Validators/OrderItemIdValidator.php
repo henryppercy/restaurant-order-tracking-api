@@ -7,7 +7,6 @@ use App\DataAccess\Database;
 
 class OrderItemIdValidator
 {
-
     /**
      * @param int $menuItemNum
      * @return bool
