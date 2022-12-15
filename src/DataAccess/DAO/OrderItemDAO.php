@@ -25,4 +25,22 @@ class OrderItemDAO
 
         $pdo->execute();
     }
+
+    /**
+     * @param Database $db
+     * @param int $orderNumber
+     * @param int $menuItemId
+     * @return void
+     */
+    public function deleteOrderItem(Database $db, int $orderNumber, int $menuItemId): void
+    {
+        $sql = 'DELETE FROM `order_items` WHERE `order_number` = :orderNumber AND `menu_item` = :menuItem;';
+
+        $pdo = $db->getConnection()->prepare($sql);
+
+        $pdo->bindParam(':orderNumber', $orderNumber);
+        $pdo->bindParam(':menuItem', $menuItemId);
+
+        $pdo->execute();
+    }
 }

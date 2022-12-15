@@ -3,6 +3,7 @@ namespace App\Services;
 use App\DataAccess\DAO\OrderItemDAO;
 use App\DataAccess\Database;
 use App\Services\Validators\AddOrderItemValidator;
+use App\Services\Validators\DeleteOrderItemValidator;
 
 class OrderItemService
 {
@@ -10,6 +11,8 @@ class OrderItemService
     private int $statusCode;
     private int $orderNumber;
     private AddOrderItemValidator $addOrderItemValidator;
+
+    private DeleteOrderItemValidator $deleteOrderItemValidator;
     private OrderItemDAO $orderItemDAO;
 
     /**
@@ -18,12 +21,13 @@ class OrderItemService
     @param OrderItemIdValidator $orderItemIdValidator
     @param StatusValidator $statusValidator
      */
-    public function __construct(OrderItemDAO $orderItemDAO, AddOrderItemValidator $addOrderItemValidator)
+    public function __construct(OrderItemDAO $orderItemDAO, DeleteOrderItemValidator $deleteOrderItemValidator, AddOrderItemValidator $addOrderItemValidator)
     {
         $this->db = Database::getInstance();
         $this->orderItemDAO = $orderItemDAO;
         $this->statusCode = 400;
         $this->addOrderItemValidator = $addOrderItemValidator;
+        $this->deleteOrderItemValidator = $deleteOrderItemValidator;
     }
 
     /**
@@ -75,6 +79,34 @@ class OrderItemService
                     'data' => []
                 ];
                 $this->setStatusCode(200);
+            }
+        } catch (\Exception $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(400);
+        } catch (\PDOException $exception) {
+            $responseData['message'] = $exception->getMessage();
+            $this->setStatusCode(500);
+        }
+        return $responseData;
+    }
+
+    public function deleteOrderItem(array $menuItemId): array
+    {
+        $responseData = [
+            'success' => false,
+            'message' => 'Something went wrong.',
+            'data' => []
+        ];
+
+        try {
+            if($this->deleteOrderItemValidator->validateOrderItem($this->db, $this->orderNumber, $menuItemId))   {
+                $this->orderItemDAO->deleteOrderItem($this->db, $this->getOrderNumber(), $menuItemId['menuItemNumber']);
+                $responseData = [
+                    'success' => true,
+                    'message' => 'Item successfully deleted.',
+                    'data' => []
+                ];
+                $this->setStatusCode(204);
             }
         } catch (\Exception $exception) {
             $responseData['message'] = $exception->getMessage();

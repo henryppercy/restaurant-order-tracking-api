@@ -1,8 +1,4 @@
-[//]: # (To Do:)
 
-[//]: # (# &#40;Refer to Frontend when testing is complete&#41; and how to connect the FE to BE)
-
-[//]: # (Update instructions for editing DB connection parameters)
 # The Hawks (2022 August Cohort): Final Project
 
 ## Restaurant Orders API
@@ -56,6 +52,13 @@ To set the database up locally:
 1. Create a new database in your MySQL Database GUI called `restaurantorders`
 2. Import the sql file  `docs/restaurant_api_db_creation.sql` and run it
 3. You should now have four new tables in this database called `menu_items`, `order_items`, `orders` and `statuses`
+
+### 3.3 Frontend
+
+This backend was built to be used in conjunction with a frontend which was built as part of a 
+final project by another group also on [iO Academy Full Stack Track course](https://io-academy.uk/).
+If you wish to use this, navigate to `https://github.com/fatimaseghir/restaurant-order-tracking-fe` and follow the installation instructions.
+
 ---
 
 ## 4. Using the API
@@ -112,7 +115,7 @@ To set the database up locally:
 * **Error Responses:**
     * **Code:** 400 BAD REQUEST<br />
       **Content:** `{"message": "Something went wrong.", "data": []}`<br />
-      OR
+      
     * **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
 
@@ -146,31 +149,31 @@ To set the database up locally:
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{"message": "Successfuly created new order",
-      "data": {"order_number_id": 12}}`
+    **Content:** `{"message": "Successfully created new order",
+      "data": {"orderNumber": 12}}`
 
 * **Error Responses:**
   * **Code:** 400 BAD REQUEST<br />
     **Content:** `{"message": "Something went wrong.", "data": []}`
-
-  * **Code:** 500 SERVER ERROR <br />
+  * **If email is not valid** <br />
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Email is not valid.", "data": []}`
+  * **If there was a server error** <br />
+    **Code:** 500 SERVER ERROR <br />
     **Content:** `{"message": "Something went wrong.", "data": []}`
 
 ### Add New Item to Order
 
-* URL
+* **URL**
 
-    `/additems`
+    `/additems/{orderNumber}`
 
-* Method:
+* **Method:**
 
   `POST`
 
-* **URL Params**
-
-  **Required:**
-
-    `orderNumber` - The number for the order that you want to add an item to
+* **URL Params** <br />
+There are no URL params
 
   **Example:**
 
@@ -187,18 +190,81 @@ To set the database up locally:
 * **Success Response:**
 
     * **Code:** 200 <br />
-      **Content:** `{"message": "Item successfuly added.",
+      **Content:** `{"message": "Item successfully added.",
       "data": []`
 
 
 * **Error Responses:**
 
-    * **Code:** 400 BAD REQUEST<br />
+    * **If the order number does not exist** <br />
+      **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Order number doesn't yet exist.", "data": []}`
+    * **If the order is not active** <br />
+      **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Order is not in progress.", "data": []}`
+    * **If it is not a valid menu item**
+      **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Menu item doesn't exist.", "data": []}`
+    * **If the menu item has already been added to the order** <br />
+      **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Menu item already added to order.", "data": []}`
+    * **If the menu item has a quantity of zero or below** <br />
+      **Code:** 400 BAD REQUEST<br />
+      **Content:** `{"message": "Item quantity should be above zero.", "data": []}`
+    * **If there was a server error** <br />
+      **Code:** 500 SERVER ERROR <br />
       **Content:** `{"message": "Something went wrong.", "data": []}`
 
-    * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{"message": "Something went wrong.", "data": []}`
+### Delete Item from Order
 
+* **URL**
+
+  `/deleteitems/{orderNumber}`
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params** <br />
+  There are no URL params
+
+    **Example:**
+
+  `/deleteitems/3`
+
+* **Body Data:**
+
+  ```json
+      {
+          "menuItemNumber": 1
+      }
+  ```
+* **Success Response:**
+
+    * **Code:** 200 <br />
+      **Content:** `{"message": "Item successfuly deleted.",
+      "data": []`
+
+
+* **Error Responses:**
+
+  * **If the order number does not exist** <br />
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Order number doesn't yet exist.", "data": []}`
+  * **If the order is not active** <br />
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Order is not in progress.", "data": []}`
+  * **If it is not a valid menu item**
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Menu item doesn't exist.", "data": []}`
+  * **If the menu item didn't exist in the order** <br />
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"message": "Menu item didn't exist in order.", "data": []}`
+  * **If there was a server error** <br />
+    **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"message": "Something went wrong.", "data": []}`
+
+  
 ---
 
 
