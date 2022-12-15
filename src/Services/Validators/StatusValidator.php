@@ -7,25 +7,13 @@ use App\DataAccess\Database;
 
 class StatusValidator
 {
-    /**
-     * @var Database
-     */
-    private Database $db;
-
-    /**
-     * @param Database $db
-     */
-    public function __construct(Database $db)
-    {
-        $this->db = $db;
-    }
 
     /**
      * @param int $orderNum
      * @return bool
      */
-    public function validateStatus(int $orderNum): bool
+    public function validateStatus(Database $db, int $orderNum): bool
     {
-        return (ValidationDAO::checkIfStatusInProgress($this->db, $orderNum));
+        return (ValidationDAO::checkIfStatusInProgress($db, $orderNum));
     }
 }
