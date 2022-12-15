@@ -241,9 +241,8 @@ There are no URL params
   ```
 * **Success Response:**
 
-    * **Code:** 200 <br />
-      **Content:** `{"message": "Item successfuly deleted.",
-      "data": []`
+    * **Code:** 204 <br />
+      **Content:** `No content is returned.`
 
 
 * **Error Responses:**
