@@ -166,18 +166,18 @@ If you wish to use this, navigate to `https://github.com/fatimaseghir/restaurant
 
 * **URL**
 
-    `/additems/{orderNumber}`
+    `/orders/{orderNumber}`
 
 * **Method:**
 
-  `POST`
+  `PUT`
 
 * **URL Params** <br />
 There are no URL params
 
   **Example:**
 
-  `/additems/3`
+  `/orders/3`
 
 * **Body Data:**
 
@@ -219,7 +219,7 @@ There are no URL params
 
 * **URL**
 
-  `/deleteitems/{orderNumber}`
+  `/orders/{orderNumber}`
 
 * **Method:**
 
@@ -230,7 +230,7 @@ There are no URL params
 
     **Example:**
 
-  `/deleteitems/3`
+  `/orders/3`
 
 * **Body Data:**
 
