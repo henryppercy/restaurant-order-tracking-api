@@ -29,8 +29,8 @@ return function (App $app) {
 
     $app->get('/menu', GetMenuController::class);
     $app->post('/orders', AddNewOrderController::class);
-    $app->post('/additems/{orderNumber}', AddOrderItemController::class);
-    $app->delete('/deleteitems/{orderNumber}', DeleteOrderItemController::class);
+    $app->put('/orders/{orderNumber}', AddOrderItemController::class);
+    $app->delete('/orders/{orderNumber}', DeleteOrderItemController::class);
 
     $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Request $request, $response): HttpNotFoundException {
         throw new HttpNotFoundException($request);
