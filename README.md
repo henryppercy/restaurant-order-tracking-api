@@ -1,7 +1,4 @@
-
-# The Hawks (2022 August Cohort): Final Project
-
-## Restaurant Orders API
+# RestaurantAPI
 
 ## 1. About
 ### Content
